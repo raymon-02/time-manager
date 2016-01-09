@@ -29,14 +29,15 @@ namespace TimeManager
         {
             var login = loginTextBox.Text;
             var password = passwordTextBox.Text;
-            var query = "SELECT password FROM Member WHERE login='" + login + "';";
 
+            var query = "SELECT password FROM Member WHERE login='" + login + "'";
             var cmd = new NpgsqlCommand(query, npgsqlConnection);
-            NpgsqlDataReader dr = cmd.ExecuteReader();
+            var dr = cmd.ExecuteReader();
 
             if (!dr.Read())
             {
-                MessageBox.Show(@"Login is invalid", @"Sign in error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(@"Login is invalid", @"Sign in error", MessageBoxButtons.OK,
+                    MessageBoxIcon.Exclamation);
                 dr.Close();
                 return;
             }
@@ -48,7 +49,8 @@ namespace TimeManager
             }
             else
             {
-                MessageBox.Show(@"Wrong password", @"Sign in Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(@"Wrong password", @"Sign in Error", MessageBoxButtons.OK,
+                    MessageBoxIcon.Exclamation);
             }
 
             dr.Close();
