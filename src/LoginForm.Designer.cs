@@ -50,7 +50,7 @@
             // 
             this.loginTextBox.Location = new System.Drawing.Point(64, 173);
             this.loginTextBox.Name = "loginTextBox";
-            this.loginTextBox.Size = new System.Drawing.Size(154, 26);
+            this.loginTextBox.Size = new System.Drawing.Size(143, 26);
             this.loginTextBox.TabIndex = 1;
             // 
             // passwordLabel
@@ -66,7 +66,7 @@
             // 
             this.passwordTextBox.Location = new System.Drawing.Point(64, 245);
             this.passwordTextBox.Name = "passwordTextBox";
-            this.passwordTextBox.Size = new System.Drawing.Size(154, 26);
+            this.passwordTextBox.Size = new System.Drawing.Size(143, 26);
             this.passwordTextBox.TabIndex = 3;
             this.passwordTextBox.UseSystemPasswordChar = true;
             // 
