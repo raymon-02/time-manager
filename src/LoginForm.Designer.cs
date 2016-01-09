@@ -68,6 +68,7 @@
             this.passwordTextBox.Name = "passwordTextBox";
             this.passwordTextBox.Size = new System.Drawing.Size(154, 26);
             this.passwordTextBox.TabIndex = 3;
+            this.passwordTextBox.UseSystemPasswordChar = true;
             // 
             // signinButton
             // 
@@ -75,8 +76,9 @@
             this.signinButton.Name = "signinButton";
             this.signinButton.Size = new System.Drawing.Size(90, 40);
             this.signinButton.TabIndex = 4;
-            this.signinButton.Text = "button1";
+            this.signinButton.Text = "Sign in";
             this.signinButton.UseVisualStyleBackColor = true;
+            this.signinButton.Click += new System.EventHandler(this.signinButton_Click);
             // 
             // signupButton
             // 
@@ -84,8 +86,9 @@
             this.signupButton.Name = "signupButton";
             this.signupButton.Size = new System.Drawing.Size(90, 40);
             this.signupButton.TabIndex = 5;
-            this.signupButton.Text = "button1";
+            this.signupButton.Text = "Sign up...";
             this.signupButton.UseVisualStyleBackColor = true;
+            this.signupButton.Click += new System.EventHandler(this.signupButton_Click);
             // 
             // exitButton
             // 
@@ -93,8 +96,9 @@
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(90, 40);
             this.exitButton.TabIndex = 6;
-            this.exitButton.Text = "button1";
+            this.exitButton.Text = "Exit";
             this.exitButton.UseVisualStyleBackColor = true;
+            this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             // 
             // LoginForm
             // 
@@ -109,6 +113,7 @@
             this.MaximumSize = new System.Drawing.Size(425, 515);
             this.MinimumSize = new System.Drawing.Size(425, 515);
             this.Name = "LoginForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.ResumeLayout(false);
             this.PerformLayout();
 
