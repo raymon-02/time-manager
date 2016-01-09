@@ -14,20 +14,14 @@ namespace TimeManager
 {
     public partial class LoginForm : Form
     {
-        private const string ServerDataBase = "Server=localhost";
-        private const string PortDataBase = "Port=5432";
-        private const string UserIdDataBase = "User Id=postgres";
-        private const string PasswordDataBase = "Password=csc";
-        private const string DataBase = "Database=postgres";
-
         private readonly NpgsqlConnection npgsqlConnection;
+
+
         public LoginForm()
         {
             InitializeComponent();
 
-            var settingsDataBase = new string[] {ServerDataBase, PortDataBase, UserIdDataBase, PasswordDataBase, DataBase};
-            var connectionDataBase = string.Join(";", settingsDataBase);
-            npgsqlConnection = new NpgsqlConnection(connectionDataBase);
+            npgsqlConnection = DataBaseConnection.GetConnection();
             npgsqlConnection.Open();
         }
 
