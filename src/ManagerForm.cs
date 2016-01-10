@@ -168,7 +168,7 @@ namespace TimeManager
                 }
                 dr.Close();
 
-                categoriesHours.Add(idCategories[categoryId], sum);
+                categoriesHours.Add(idCategories[categoryId], sum / 60);
             }
         }
 
@@ -333,7 +333,8 @@ namespace TimeManager
 
         private void sumButton_Click(object sender, EventArgs e)
         {
-
+            var totalForm = new TotalForm(dataListView, categoriesHours);
+            totalForm.ShowDialog();
         }
 
         private void signoutButton_Click(object sender, EventArgs e)
