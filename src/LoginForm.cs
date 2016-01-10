@@ -64,10 +64,6 @@ namespace TimeManager
         {
             var signUpForm = new SignUpForm();
             var result = signUpForm.ShowDialog();
-            if (result != DialogResult.OK)
-            {
-                return;
-            }
         }
 
         private void exitButton_Click(object sender, EventArgs e)
