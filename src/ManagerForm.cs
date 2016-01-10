@@ -18,8 +18,8 @@ namespace TimeManager
         private readonly int id;
         private readonly NpgsqlConnection npgsqlConnection;
 
-        private IDictionary<int, string> idCategories; 
-        private IDictionary<string, long> categoriesHours; 
+        private readonly IDictionary<int, string> idCategories; 
+        private readonly IDictionary<string, long> categoriesHours; 
 
         public ManagerForm(LoginForm preForm, int id)
         {
@@ -29,11 +29,16 @@ namespace TimeManager
             this.id = id;
 
             idCategories = new Dictionary<int, string>();
-            categoriesHours = new Dictionary<string, long>();
+            categoriesHours = new SortedDictionary<string, long>();
 
             npgsqlConnection = DataBaseConnection.GetConnection();
             npgsqlConnection.Open();
 
+            init();
+        }
+
+        private void init()
+        {
             initDataListView();
             initTotaLabel();
             initCategories();
@@ -97,6 +102,8 @@ namespace TimeManager
 
         private void initTotalListView()
         {
+            totalListView.Items.Clear();
+
             foreach (var e in categoriesHours)
             {
                 var item = new ListViewItem(e.Key);
@@ -107,6 +114,9 @@ namespace TimeManager
 
         private void initCategories()
         {
+            idCategories.Clear();
+            categoriesHours.Clear();
+
             var query = "SELECT Category.name, Mem_cat.category_id" +
                         " FROM Category" +
                         " JOIN Mem_cat ON (Category.id=Mem_cat.category_id)" +
@@ -162,16 +172,81 @@ namespace TimeManager
             }
         }
 
+        private void AddRecord(DateTime date, string startTime, string endTime, string category)
+        {
+            var dateQuery = "'" + date.Year + "-" + date.Month + "-" + date.Day + "'";
+            var query = "SELECT Mem_cat.id FROM Mem_cat" +
+                            " JOIN Category ON (Mem_cat.category_id=Category.id)" +
+                            " WHERE Mem_cat.member_id=" + id +
+                            " AND Category.name='" + category + "'";
+
+            var cmd = new NpgsqlCommand(query, npgsqlConnection);
+            var dr = cmd.ExecuteReader();
+            dr.Read();
+            var memCatId = dr.GetInt32(0);
+            dr.Close();
+
+            query = "INSERT INTO Data (mem_cat_id, day, start_t, end_t)" +
+                            " VALUES (" + memCatId +
+                            ", " + dateQuery +
+                            ", '" + startTime +
+                            "', '" + endTime + "')";
+
+            cmd = new NpgsqlCommand(query, npgsqlConnection);
+            dr = cmd.ExecuteReader();
+            dr.Close();
+        }
+
+        private void RemoveRecord(DateTime date, string startTime, string endTime, string category)
+        {
+            var dateQuery = "'" + date.Year + "-" + date.Month + "-" + date.Day + "'";
+            var query = "SELECT Mem_cat.id FROM Mem_cat" +
+                            " JOIN Category ON (Mem_cat.category_id=Category.id)" +
+                            " WHERE Mem_cat.member_id=" + id +
+                            " AND Category.name='" + category + "'";
+
+            var cmd = new NpgsqlCommand(query, npgsqlConnection);
+            var dr = cmd.ExecuteReader();
+            dr.Read();
+            var memCatId = dr.GetInt32(0);
+            dr.Close();
+
+            query = "DELETE FROM Data WHERE" +
+                    " mem_cat_id=" + memCatId +
+                    " AND day=" + dateQuery +
+                    " AND start_t='" + startTime +
+                    "' AND end_t='" + endTime + "'";
+
+            cmd = new NpgsqlCommand(query, npgsqlConnection);
+            dr = cmd.ExecuteReader();
+            dr.Close();
+        }
+
         private void addEventButton_Click(object sender, EventArgs e)
         {
+            var editRecordForm = new EditRecordForm(categoriesHours, dateTimePicker.Value);
+            var result = editRecordForm.ShowDialog();
 
+            if (result != DialogResult.OK)
+            {
+                return;
+            }
+
+            var startTime = editRecordForm.StartTime;
+            var endTime = editRecordForm.EndTime;
+            var category = editRecordForm.Category;
+            var date = dateTimePicker.Value;
+            
+            AddRecord(date, startTime, endTime, category);
+            init();
         }
+
         private void editButton_Click(object sender, EventArgs e)
         {
             if (dataListView.SelectedItems.Count == 0)
             {
                 MessageBox.Show(@"No selected record", @"Editing record", MessageBoxButtons.OK,
-                    MessageBoxIcon.Exclamation);
+                    MessageBoxIcon.Error);
                 return;
             }
 
@@ -183,34 +258,34 @@ namespace TimeManager
             }
 
             var item = dataListView.SelectedItems[0];
+            var date = dateTimePicker.Value;
+            var startTime = item.SubItems[0].Text;
+            var endTime = item.SubItems[1].Text;
+            var category = item.SubItems[2].Text;
 
+            var editRecordForm = new EditRecordForm(categoriesHours, startTime, endTime, date);
+            var result = editRecordForm.ShowDialog();
 
+            if (result != DialogResult.OK)
+            {
+                return;
+            }
 
-            var date = dateTimePicker.Value.Date;
-            var timeStart = item.SubItems[0];
-            var timeEnd = item.SubItems[1];
+            RemoveRecord(date, startTime, endTime, category);
 
-            var dateQuery = "'" + date.Year + "-" + date.Month + "-" + date.Day + "'";
-            var query = "DELETE FROM Data WHERE day=" + dateQuery +
-                        " AND start_t='" + timeStart.Text +
-                        "' AND end_t='" + timeEnd.Text + "'";
-            var cmd = new NpgsqlCommand(query, npgsqlConnection);
-            var dr = cmd.ExecuteReader();
-            dr.Close();
+            startTime = editRecordForm.StartTime;
+            endTime = editRecordForm.EndTime;
+            category = editRecordForm.Category;
 
-//            query = "INSERT INTO Data(day, start_t, end_t) VALUES (" + dateQuery +
-//                        ", '" + timeStart.Text +
-//                        "', '" + timeEnd.Text + "'";
-//            cmd = new NpgsqlCommand(query, npgsqlConnection);
-//            dr = cmd.ExecuteReader();
-//            dr.Close();
+            AddRecord(date, startTime, endTime, category);
+            init();
         }
 
         private void removeButton_Click(object sender, EventArgs e)
         {
             if (dataListView.SelectedItems.Count == 0)
             {
-                MessageBox.Show(@"No records selected", @"Removing records", MessageBoxButtons.OK,
+                MessageBox.Show(@"No selected records", @"Removing records", MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
                 return;
             }
@@ -224,27 +299,19 @@ namespace TimeManager
 
             foreach (ListViewItem item in dataListView.SelectedItems)
             {
-                var date = dateTimePicker.Value.Date;
-                var timeStart = item.SubItems[0];
-                var timeEnd = item.SubItems[1];
+                var date = dateTimePicker.Value;
+                var startTime = item.SubItems[0].Text;
+                var endTime = item.SubItems[1].Text;
+                var category = item.SubItems[2].Text;
 
-
-                var dateQuery = "'" + date.Year + "-" + date.Month + "-" + date.Day + "'";
-                var query = "DELETE FROM Data WHERE day=" + dateQuery +
-                            " AND start_t='" + timeStart.Text +
-                            "' AND end_t='" + timeEnd.Text + "'";
-                var cmd = new NpgsqlCommand(query, npgsqlConnection);
-                var dr = cmd.ExecuteReader();
-                dr.Close();
-
-                dataListView.Items.Remove(item);
+                RemoveRecord(date, startTime, endTime, category);
             }
 
+            init();
         }
 
         private void clearButton_Click(object sender, EventArgs e)
         {
-            
             var result = MessageBox.Show(@"Are you sure?", @"Removing records", MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
             if (result == DialogResult.No)
@@ -260,12 +327,27 @@ namespace TimeManager
             dr.Close();
 
             dataListView.Items.Clear();
+
+            init();
+        }
+
+        private void sumButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void signoutButton_Click(object sender, EventArgs e)
+        {
+            npgsqlConnection.Close();
+            preForm.Show();
+            Hide();
         }
 
         protected override void OnClosing(CancelEventArgs e)
         {
             base.OnClosing(e);
-            preForm.Show();
+            npgsqlConnection.Close();
+            preForm.Close();
         }
         private void dateTimePicker_CloseUp(object sender, EventArgs e)
         {

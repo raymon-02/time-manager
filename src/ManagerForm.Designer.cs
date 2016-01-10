@@ -59,6 +59,7 @@
             this.sumButton.TabIndex = 0;
             this.sumButton.Text = "Show total";
             this.sumButton.UseVisualStyleBackColor = true;
+            this.sumButton.Click += new System.EventHandler(this.sumButton_Click);
             // 
             // dataListView
             // 
@@ -216,6 +217,7 @@
             this.signoutButton.TabIndex = 11;
             this.signoutButton.Text = "Sign Out";
             this.signoutButton.UseVisualStyleBackColor = true;
+            this.signoutButton.Click += new System.EventHandler(this.signoutButton_Click);
             // 
             // ManagerForm
             // 
