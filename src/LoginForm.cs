@@ -37,7 +37,7 @@ namespace TimeManager
             if (!dr.Read())
             {
                 MessageBox.Show(@"Login is invalid", @"Sign in error", MessageBoxButtons.OK,
-                    MessageBoxIcon.Exclamation);
+                    MessageBoxIcon.Error);
                 dr.Close();
                 return;
             }
@@ -46,13 +46,13 @@ namespace TimeManager
             if (password != expectedPassord)
             {
                 MessageBox.Show(@"Wrong password", @"Sign in Error", MessageBoxButtons.OK,
-                    MessageBoxIcon.Exclamation);
+                    MessageBoxIcon.Error);
             }
 
             var id = int.Parse(dr.GetString(0));
             var managerForm = new ManagerForm(this, id);
             managerForm.Show();
-            this.Hide();
+            Hide();
 
             loginTextBox.Text = "";
             passwordTextBox.Text = "";
@@ -63,7 +63,7 @@ namespace TimeManager
         private void signupButton_Click(object sender, EventArgs e)
         {
             var signUpForm = new SignUpForm();
-            var result = signUpForm.ShowDialog();
+            signUpForm.ShowDialog();
         }
 
         private void exitButton_Click(object sender, EventArgs e)
