@@ -30,7 +30,7 @@ namespace TimeManager
             var login = loginTextBox.Text;
             var password = passwordTextBox.Text;
 
-            var query = "SELECT password FROM Member WHERE login='" + login + "'";
+            var query = "SELECT id, password FROM Member WHERE login='" + login + "'";
             var cmd = new NpgsqlCommand(query, npgsqlConnection);
             var dr = cmd.ExecuteReader();
 
@@ -42,16 +42,20 @@ namespace TimeManager
                 return;
             }
 
-            var expectedPassord = dr.GetString(0);
-            if (password == expectedPassord)
-            {
-                MessageBox.Show("Great! ExPassowrd = " + expectedPassord);
-            }
-            else
+            var expectedPassord = dr.GetString(1);
+            if (password != expectedPassord)
             {
                 MessageBox.Show(@"Wrong password", @"Sign in Error", MessageBoxButtons.OK,
                     MessageBoxIcon.Exclamation);
             }
+
+            var id = int.Parse(dr.GetString(0));
+            var managerForm = new ManagerForm(this, id);
+            managerForm.Show();
+            this.Hide();
+
+            loginTextBox.Text = "";
+            passwordTextBox.Text = "";
 
             dr.Close();
         }

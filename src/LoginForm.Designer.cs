@@ -102,7 +102,7 @@
             // 
             // LoginForm
             // 
-            this.ClientSize = new System.Drawing.Size(403, 459);
+            this.ClientSize = new System.Drawing.Size(404, 426);
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.signupButton);
             this.Controls.Add(this.signinButton);
@@ -110,8 +110,7 @@
             this.Controls.Add(this.passwordLabel);
             this.Controls.Add(this.loginTextBox);
             this.Controls.Add(this.loginLabel);
-            this.MaximumSize = new System.Drawing.Size(425, 515);
-            this.MinimumSize = new System.Drawing.Size(425, 515);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "LoginForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.ResumeLayout(false);
