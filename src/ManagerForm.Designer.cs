@@ -35,19 +35,19 @@
             this.categoryColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.userToolStrip = new System.Windows.Forms.ToolStripMenuItem();
-            this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.signOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addCategoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.addEventButton = new System.Windows.Forms.Button();
             this.editButton = new System.Windows.Forms.Button();
             this.removeButton = new System.Windows.Forms.Button();
             this.clearButton = new System.Windows.Forms.Button();
             this.totalLabel = new System.Windows.Forms.Label();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.totalListView = new System.Windows.Forms.ListView();
             this.categoryColumnTotal = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.totalHourColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.signoutButton = new System.Windows.Forms.Button();
-            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addCategoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -67,6 +67,7 @@
             this.timeStartColumn,
             this.timeEndColumn,
             this.categoryColumn});
+            this.dataListView.FullRowSelect = true;
             this.dataListView.Location = new System.Drawing.Point(12, 86);
             this.dataListView.Name = "dataListView";
             this.dataListView.Size = new System.Drawing.Size(314, 329);
@@ -107,18 +108,33 @@
             this.userToolStrip.Size = new System.Drawing.Size(59, 29);
             this.userToolStrip.Text = "User";
             // 
+            // signOutToolStripMenuItem
+            // 
+            this.signOutToolStripMenuItem.Name = "signOutToolStripMenuItem";
+            this.signOutToolStripMenuItem.Size = new System.Drawing.Size(164, 30);
+            this.signOutToolStripMenuItem.Text = "Sign out";
+            // 
+            // toolsToolStripMenuItem
+            // 
+            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addCategoryToolStripMenuItem});
+            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(67, 29);
+            this.toolsToolStripMenuItem.Text = "Tools";
+            // 
+            // addCategoryToolStripMenuItem
+            // 
+            this.addCategoryToolStripMenuItem.Name = "addCategoryToolStripMenuItem";
+            this.addCategoryToolStripMenuItem.Size = new System.Drawing.Size(205, 30);
+            this.addCategoryToolStripMenuItem.Text = "Add category";
+            // 
             // dateTimePicker
             // 
             this.dateTimePicker.Location = new System.Drawing.Point(12, 54);
             this.dateTimePicker.Name = "dateTimePicker";
             this.dateTimePicker.Size = new System.Drawing.Size(314, 26);
             this.dateTimePicker.TabIndex = 4;
-            // 
-            // signOutToolStripMenuItem
-            // 
-            this.signOutToolStripMenuItem.Name = "signOutToolStripMenuItem";
-            this.signOutToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
-            this.signOutToolStripMenuItem.Text = "Sign out";
+            this.dateTimePicker.CloseUp += new System.EventHandler(this.dateTimePicker_CloseUp);
             // 
             // addEventButton
             // 
@@ -138,6 +154,7 @@
             this.editButton.TabIndex = 6;
             this.editButton.Text = "Edit...";
             this.editButton.UseVisualStyleBackColor = true;
+            this.editButton.Click += new System.EventHandler(this.editButton_Click);
             // 
             // removeButton
             // 
@@ -157,6 +174,7 @@
             this.clearButton.TabIndex = 8;
             this.clearButton.Text = "Clear";
             this.clearButton.UseVisualStyleBackColor = true;
+            this.clearButton.Click += new System.EventHandler(this.clearButton_Click);
             // 
             // totalLabel
             // 
@@ -168,17 +186,17 @@
             this.totalLabel.Text = "Total for all time since\r\n";
             this.totalLabel.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             // 
-            // listView1
+            // totalListView
             // 
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.totalListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.categoryColumnTotal,
             this.totalHourColumn});
-            this.listView1.Location = new System.Drawing.Point(629, 107);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(195, 308);
-            this.listView1.TabIndex = 10;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
+            this.totalListView.Location = new System.Drawing.Point(629, 107);
+            this.totalListView.Name = "totalListView";
+            this.totalListView.Size = new System.Drawing.Size(195, 308);
+            this.totalListView.TabIndex = 10;
+            this.totalListView.UseCompatibleStateImageBehavior = false;
+            this.totalListView.View = System.Windows.Forms.View.Details;
             // 
             // categoryColumnTotal
             // 
@@ -198,27 +216,13 @@
             this.signoutButton.Text = "Sign Out";
             this.signoutButton.UseVisualStyleBackColor = true;
             // 
-            // toolsToolStripMenuItem
-            // 
-            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addCategoryToolStripMenuItem});
-            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(67, 29);
-            this.toolsToolStripMenuItem.Text = "Tools";
-            // 
-            // addCategoryToolStripMenuItem
-            // 
-            this.addCategoryToolStripMenuItem.Name = "addCategoryToolStripMenuItem";
-            this.addCategoryToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
-            this.addCategoryToolStripMenuItem.Text = "Add category";
-            // 
             // ManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(836, 563);
             this.Controls.Add(this.signoutButton);
-            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.totalListView);
             this.Controls.Add(this.totalLabel);
             this.Controls.Add(this.clearButton);
             this.Controls.Add(this.removeButton);
@@ -233,7 +237,6 @@
             this.Name = "ManagerForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Time Manager";
-            this.Load += new System.EventHandler(this.ManagerForm_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -257,7 +260,7 @@
         private System.Windows.Forms.Button removeButton;
         private System.Windows.Forms.Button clearButton;
         private System.Windows.Forms.Label totalLabel;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView totalListView;
         private System.Windows.Forms.ColumnHeader categoryColumnTotal;
         private System.Windows.Forms.ColumnHeader totalHourColumn;
         private System.Windows.Forms.Button signoutButton;
