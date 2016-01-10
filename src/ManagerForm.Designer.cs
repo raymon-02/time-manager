@@ -71,6 +71,7 @@
             this.dataListView.Location = new System.Drawing.Point(12, 86);
             this.dataListView.Name = "dataListView";
             this.dataListView.Size = new System.Drawing.Size(314, 329);
+            this.dataListView.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.dataListView.TabIndex = 1;
             this.dataListView.UseCompatibleStateImageBehavior = false;
             this.dataListView.View = System.Windows.Forms.View.Details;

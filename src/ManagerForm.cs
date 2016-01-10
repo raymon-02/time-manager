@@ -18,6 +18,9 @@ namespace TimeManager
         private readonly int id;
         private readonly NpgsqlConnection npgsqlConnection;
 
+        private IDictionary<int, string> idCategories; 
+        private IDictionary<string, long> categoriesHours; 
+
         public ManagerForm(LoginForm preForm, int id)
         {
             InitializeComponent();
@@ -25,11 +28,16 @@ namespace TimeManager
             this.preForm = preForm;
             this.id = id;
 
+            idCategories = new Dictionary<int, string>();
+            categoriesHours = new Dictionary<string, long>();
+
             npgsqlConnection = DataBaseConnection.GetConnection();
             npgsqlConnection.Open();
 
             initDataListView();
             initTotaLabel();
+            initCategories();
+            initTotalListView();
         }
 
         private void initDataListView()
@@ -48,27 +56,16 @@ namespace TimeManager
             var cmd = new NpgsqlCommand(query, npgsqlConnection);
             var dr = cmd.ExecuteReader();
 
-            if (!dr.Read())
+            while (dr.Read())
             {
-                dr.Close();
-                return;
-            }
-
-            var i = 0;
-            while (i < dr.FieldCount)
-            {
-                var startTime = dr.GetTimeSpan(i);
-                i++;
-                var endTime = dr.GetTimeSpan(i);
-                i++;
-                var category = dr.GetString(i);
+                var startTime = dr.GetTimeSpan(0);
+                var endTime = dr.GetTimeSpan(1);
+                var category = dr.GetString(2);
 
                 var item = new ListViewItem(startTime.ToString());
                 item.SubItems.Add(endTime.ToString());
                 item.SubItems.Add(category);
                 dataListView.Items.Add(item);
-
-                i++;
             }
 
             dr.Close();
@@ -96,6 +93,73 @@ namespace TimeManager
             totalLabel.Text += date.ToString();
 
             dr.Close();
+        }
+
+        private void initTotalListView()
+        {
+            foreach (var e in categoriesHours)
+            {
+                var item = new ListViewItem(e.Key);
+                item.SubItems.Add(e.Value.ToString());
+                totalListView.Items.Add(item);
+            }
+        }
+
+        private void initCategories()
+        {
+            var query = "SELECT Category.name, Mem_cat.category_id" +
+                        " FROM Category" +
+                        " JOIN Mem_cat ON (Category.id=Mem_cat.category_id)" +
+                        " WHERE Mem_cat.member_id=" + id;
+
+            var cmd = new NpgsqlCommand(query, npgsqlConnection);
+            var dr = cmd.ExecuteReader();
+
+            if (!dr.Read())
+            {
+                dr.Close();
+                return;
+            }
+
+            var i = 0;
+            while (i < dr.FieldCount)
+            {
+                var category = dr.GetString(i);
+                i++;
+                var categoryId = dr.GetInt32(i);
+                i++;
+
+                idCategories.Add(categoryId, category);
+            }
+            dr.Close();
+
+            countHoursForCategories();
+        }
+
+        private void countHoursForCategories()
+        {
+            foreach (var categoryId in idCategories.Keys)
+            {
+                var query = "SELECT Data.start_t, Data.end_t FROM Data" +
+                            " JOIN Mem_cat ON (Data.mem_cat_id=Mem_cat.id)" +
+                            " WHERE Mem_cat.member_id=" + id +
+                            " AND Mem_cat.category_id=" + categoryId;
+
+                var cmd = new NpgsqlCommand(query, npgsqlConnection);
+                var dr = cmd.ExecuteReader();
+
+                var sum = 0;
+                while (dr.Read())
+                {
+                    var startTime = dr.GetTimeSpan(0);
+                    var endTime = dr.GetTimeSpan(1);
+                    sum += endTime.Hours*60 + endTime.Minutes -
+                           (startTime.Hours*60 + startTime.Minutes);
+                }
+                dr.Close();
+
+                categoriesHours.Add(idCategories[categoryId], sum);
+            }
         }
 
         private void addEventButton_Click(object sender, EventArgs e)
