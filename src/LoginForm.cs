@@ -68,8 +68,13 @@ namespace TimeManager
 
         private void exitButton_Click(object sender, EventArgs e)
         {
+            Close();
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
             npgsqlConnection.Close();
-            LoginForm.ActiveForm.Close();
         }
     }
 }

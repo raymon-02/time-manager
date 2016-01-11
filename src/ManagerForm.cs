@@ -78,6 +78,8 @@ namespace TimeManager
 
         private void initTotaLabel()
         {
+            totalLabel.Text = "Total for all time since\n";
+
             var query = "SELECT Data.day FROM Data" +
                         " JOIN Mem_cat ON (Data.mem_cat_id=Mem_cat.id)" +
                         " JOIN Category ON (Mem_cat.category_id=Category.id)" +
@@ -125,19 +127,10 @@ namespace TimeManager
             var cmd = new NpgsqlCommand(query, npgsqlConnection);
             var dr = cmd.ExecuteReader();
 
-            if (!dr.Read())
+            while (dr.Read())
             {
-                dr.Close();
-                return;
-            }
-
-            var i = 0;
-            while (i < dr.FieldCount)
-            {
-                var category = dr.GetString(i);
-                i++;
-                var categoryId = dr.GetInt32(i);
-                i++;
+                var category = dr.GetString(0);
+                var categoryId = dr.GetInt32(1);
 
                 idCategories.Add(categoryId, category);
             }
@@ -224,7 +217,7 @@ namespace TimeManager
 
         private void addEventButton_Click(object sender, EventArgs e)
         {
-            var editRecordForm = new EditRecordForm(categoriesHours, dateTimePicker.Value);
+            var editRecordForm = new EditRecordForm(id, categoriesHours, dateTimePicker.Value);
             var result = editRecordForm.ShowDialog();
 
             if (result != DialogResult.OK)
@@ -263,7 +256,7 @@ namespace TimeManager
             var endTime = item.SubItems[1].Text;
             var category = item.SubItems[2].Text;
 
-            var editRecordForm = new EditRecordForm(categoriesHours, startTime, endTime, date);
+            var editRecordForm = new EditRecordForm(id, categoriesHours, startTime, endTime, date);
             var result = editRecordForm.ShowDialog();
 
             if (result != DialogResult.OK)
@@ -344,15 +337,47 @@ namespace TimeManager
             Hide();
         }
 
-        protected override void OnClosing(CancelEventArgs e)
+        protected override void OnClosed(EventArgs e)
         {
-            base.OnClosing(e);
+            base.OnClosed(e);
             npgsqlConnection.Close();
             preForm.Close();
         }
+
         private void dateTimePicker_CloseUp(object sender, EventArgs e)
         {
             initDataListView();
+        }
+
+        private void addCategoryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void signOutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            signoutButton_Click(sender, e);
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OnClosed(e);
+        }
+
+        private void addFromStandartToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var standartCategoryForm = new StandartCategoryForm(id);
+            standartCategoryForm.ShowDialog();
+
+            init();
+        }
+
+        private void createNewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var categoryForm = new CategoryForm(id);
+            categoryForm.ShowDialog();
+
+            init();
         }
     }
 }

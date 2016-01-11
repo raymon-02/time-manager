@@ -36,8 +36,10 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.userToolStrip = new System.Windows.Forms.ToolStripMenuItem();
             this.signOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addCategoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editCategoriesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.addEventButton = new System.Windows.Forms.Button();
             this.editButton = new System.Windows.Forms.Button();
@@ -48,6 +50,8 @@
             this.categoryColumnTotal = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.totalHourColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.signoutButton = new System.Windows.Forms.Button();
+            this.createNewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addFromStandartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -105,7 +109,8 @@
             // userToolStrip
             // 
             this.userToolStrip.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.signOutToolStripMenuItem});
+            this.signOutToolStripMenuItem,
+            this.exitToolStripMenuItem});
             this.userToolStrip.Name = "userToolStrip";
             this.userToolStrip.Size = new System.Drawing.Size(59, 29);
             this.userToolStrip.Text = "User";
@@ -113,22 +118,41 @@
             // signOutToolStripMenuItem
             // 
             this.signOutToolStripMenuItem.Name = "signOutToolStripMenuItem";
-            this.signOutToolStripMenuItem.Size = new System.Drawing.Size(164, 30);
+            this.signOutToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
             this.signOutToolStripMenuItem.Text = "Sign out";
+            this.signOutToolStripMenuItem.Click += new System.EventHandler(this.signOutToolStripMenuItem_Click);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // toolsToolStripMenuItem
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addCategoryToolStripMenuItem});
+            this.addCategoryToolStripMenuItem,
+            this.editCategoriesToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(67, 29);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
             // addCategoryToolStripMenuItem
             // 
+            this.addCategoryToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addFromStandartToolStripMenuItem,
+            this.createNewToolStripMenuItem});
             this.addCategoryToolStripMenuItem.Name = "addCategoryToolStripMenuItem";
-            this.addCategoryToolStripMenuItem.Size = new System.Drawing.Size(205, 30);
+            this.addCategoryToolStripMenuItem.Size = new System.Drawing.Size(248, 30);
             this.addCategoryToolStripMenuItem.Text = "Add category";
+            this.addCategoryToolStripMenuItem.Click += new System.EventHandler(this.addCategoryToolStripMenuItem_Click);
+            // 
+            // editCategoriesToolStripMenuItem
+            // 
+            this.editCategoriesToolStripMenuItem.Name = "editCategoriesToolStripMenuItem";
+            this.editCategoriesToolStripMenuItem.Size = new System.Drawing.Size(248, 30);
+            this.editCategoriesToolStripMenuItem.Text = "Remove category...";
             // 
             // dateTimePicker
             // 
@@ -219,6 +243,20 @@
             this.signoutButton.UseVisualStyleBackColor = true;
             this.signoutButton.Click += new System.EventHandler(this.signoutButton_Click);
             // 
+            // createNewToolStripMenuItem
+            // 
+            this.createNewToolStripMenuItem.Name = "createNewToolStripMenuItem";
+            this.createNewToolStripMenuItem.Size = new System.Drawing.Size(257, 30);
+            this.createNewToolStripMenuItem.Text = "Create new...";
+            this.createNewToolStripMenuItem.Click += new System.EventHandler(this.createNewToolStripMenuItem_Click);
+            // 
+            // addFromStandartToolStripMenuItem
+            // 
+            this.addFromStandartToolStripMenuItem.Name = "addFromStandartToolStripMenuItem";
+            this.addFromStandartToolStripMenuItem.Size = new System.Drawing.Size(257, 30);
+            this.addFromStandartToolStripMenuItem.Text = "Add from standart...";
+            this.addFromStandartToolStripMenuItem.Click += new System.EventHandler(this.addFromStandartToolStripMenuItem_Click);
+            // 
             // ManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -269,5 +307,9 @@
         private System.Windows.Forms.Button signoutButton;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addCategoryToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editCategoriesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addFromStandartToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem createNewToolStripMenuItem;
     }
 }

@@ -67,8 +67,13 @@ namespace TimeManager
 
         private void cancelSignUpButton_Click(object sender, EventArgs e)
         {
+            Close();
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
             npgsqlConnection.Close();
-            SignUpForm.ActiveForm.Close();
         }
     }
 }

@@ -16,10 +16,11 @@ namespace TimeManager
     {
         private readonly NpgsqlConnection npgsqlConnection;
 
+        private readonly int id;
         private readonly IDictionary<string, long> categories;
         private readonly DateTime date;
 
-        public EditRecordForm(IDictionary<string, long> categories, DateTime date)
+        public EditRecordForm(int id, IDictionary<string, long> categories, DateTime date)
         {
             InitializeComponent();
 
@@ -30,10 +31,11 @@ namespace TimeManager
             this.StartTime = "00:00";
             this.EndTime = "00:00";
             this.date = date;
+            this.id = id;
 
             initForm("Add");
         }
-        public EditRecordForm(IDictionary<string, long> categories, string startTime, string endTime, DateTime date)
+        public EditRecordForm(int id, IDictionary<string, long> categories, string startTime, string endTime, DateTime date)
         {
             InitializeComponent();
 
@@ -44,6 +46,7 @@ namespace TimeManager
             this.StartTime = startTime;
             this.EndTime = endTime;
             this.date = date;
+            this.id = id;
 
             startTimePicker.Text = startTime;
             endTimePicker.Text = endTime;
@@ -78,16 +81,37 @@ namespace TimeManager
                 return;
             }
 
+            if (categoryBox.Text == "")
+            {
+                MessageBox.Show(@"Category field must be not empty", @"Category field", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                return;
+            }
+
             var startTime = startTimePicker.Text;
             var endTime = endTimePicker.Text;
+            var category = categoryBox.Text;
 
-            var dateQuery = "'" + date.Year + "-" + date.Month + "-" + date.Day + "'";
-            var query = "SELECT Data.id FROM Data" +
-                            " WHERE Data.day=" + dateQuery +
-                            " AND Data.start_t='" + startTime +
-                            "' AND Data.end_t='" + endTime + "'";
+
+            var query = "SELECT Mem_cat.id FROM Mem_cat" +
+                        " JOIN Category ON (Mem_cat.category_id=Category.id)" +
+                        " WHERE Category.name='" + category +
+                        "' AND Mem_cat.member_id=" + id;
             var cmd = new NpgsqlCommand(query, npgsqlConnection);
             var dr = cmd.ExecuteReader();
+            dr.Read();
+            var memCatId = dr.GetInt32(0);
+            dr.Close();
+
+
+            var dateQuery = "'" + date.Year + "-" + date.Month + "-" + date.Day + "'";
+            query = "SELECT Data.id FROM Data" +
+                    " WHERE Data.mem_cat_id=" + memCatId + 
+                    " AND Data.day=" + dateQuery +
+                    " AND Data.start_t='" + startTime +
+                    "' AND Data.end_t='" + endTime + "'";
+            cmd = new NpgsqlCommand(query, npgsqlConnection);
+            dr = cmd.ExecuteReader();
             if (dr.Read())
             {
                 dr.Close();
@@ -96,13 +120,6 @@ namespace TimeManager
                 return;
             }
             dr.Close();
-
-            if (categoryBox.Text == "")
-            {
-                MessageBox.Show(@"Category field must be not empty", @"Category field", MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-                return;
-            }
 
             var result = MessageBox.Show(@"Save changes?", @"Saving changes", 
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -123,10 +140,14 @@ namespace TimeManager
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
-            npgsqlConnection.Close();
-
             DialogResult = DialogResult.Cancel;
             Close();
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+            npgsqlConnection.Close();
         }
     }
 }
