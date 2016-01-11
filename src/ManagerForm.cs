@@ -379,5 +379,13 @@ namespace TimeManager
 
             init();
         }
+
+        private void editCategoriesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var removeCategoryForm = new RemoveCategoryForm(id, categoriesHours);
+            removeCategoryForm.ShowDialog();
+
+            init();
+        }
     }
 }

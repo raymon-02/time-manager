@@ -153,6 +153,7 @@
             this.editCategoriesToolStripMenuItem.Name = "editCategoriesToolStripMenuItem";
             this.editCategoriesToolStripMenuItem.Size = new System.Drawing.Size(248, 30);
             this.editCategoriesToolStripMenuItem.Text = "Remove category...";
+            this.editCategoriesToolStripMenuItem.Click += new System.EventHandler(this.editCategoriesToolStripMenuItem_Click);
             // 
             // dateTimePicker
             // 
