@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginForm));
             this.loginLabel = new System.Windows.Forms.Label();
             this.loginTextBox = new System.Windows.Forms.TextBox();
             this.passwordLabel = new System.Windows.Forms.Label();
@@ -35,46 +36,52 @@
             this.signinButton = new System.Windows.Forms.Button();
             this.signupButton = new System.Windows.Forms.Button();
             this.exitButton = new System.Windows.Forms.Button();
+            this.pictureBox = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // loginLabel
             // 
             this.loginLabel.AutoSize = true;
-            this.loginLabel.Location = new System.Drawing.Point(60, 150);
+            this.loginLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.loginLabel.Location = new System.Drawing.Point(59, 271);
             this.loginLabel.Name = "loginLabel";
-            this.loginLabel.Size = new System.Drawing.Size(48, 20);
+            this.loginLabel.Size = new System.Drawing.Size(60, 25);
             this.loginLabel.TabIndex = 0;
             this.loginLabel.Text = "Login";
             // 
             // loginTextBox
             // 
-            this.loginTextBox.Location = new System.Drawing.Point(64, 173);
+            this.loginTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.loginTextBox.Location = new System.Drawing.Point(64, 299);
             this.loginTextBox.Name = "loginTextBox";
-            this.loginTextBox.Size = new System.Drawing.Size(143, 26);
+            this.loginTextBox.Size = new System.Drawing.Size(186, 30);
             this.loginTextBox.TabIndex = 1;
             this.loginTextBox.Text = "raymon";
             // 
             // passwordLabel
             // 
             this.passwordLabel.AutoSize = true;
-            this.passwordLabel.Location = new System.Drawing.Point(60, 222);
+            this.passwordLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.passwordLabel.Location = new System.Drawing.Point(59, 344);
             this.passwordLabel.Name = "passwordLabel";
-            this.passwordLabel.Size = new System.Drawing.Size(78, 20);
+            this.passwordLabel.Size = new System.Drawing.Size(98, 25);
             this.passwordLabel.TabIndex = 2;
             this.passwordLabel.Text = "Password";
             // 
             // passwordTextBox
             // 
-            this.passwordTextBox.Location = new System.Drawing.Point(64, 245);
+            this.passwordTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.passwordTextBox.Location = new System.Drawing.Point(63, 372);
             this.passwordTextBox.Name = "passwordTextBox";
-            this.passwordTextBox.Size = new System.Drawing.Size(143, 26);
+            this.passwordTextBox.Size = new System.Drawing.Size(186, 30);
             this.passwordTextBox.TabIndex = 3;
             this.passwordTextBox.Text = "spirit";
             this.passwordTextBox.UseSystemPasswordChar = true;
             // 
             // signinButton
             // 
-            this.signinButton.Location = new System.Drawing.Point(64, 317);
+            this.signinButton.Location = new System.Drawing.Point(63, 438);
             this.signinButton.Name = "signinButton";
             this.signinButton.Size = new System.Drawing.Size(90, 40);
             this.signinButton.TabIndex = 4;
@@ -84,7 +91,7 @@
             // 
             // signupButton
             // 
-            this.signupButton.Location = new System.Drawing.Point(160, 317);
+            this.signupButton.Location = new System.Drawing.Point(159, 438);
             this.signupButton.Name = "signupButton";
             this.signupButton.Size = new System.Drawing.Size(90, 40);
             this.signupButton.TabIndex = 5;
@@ -94,7 +101,7 @@
             // 
             // exitButton
             // 
-            this.exitButton.Location = new System.Drawing.Point(256, 317);
+            this.exitButton.Location = new System.Drawing.Point(255, 438);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(90, 40);
             this.exitButton.TabIndex = 6;
@@ -102,9 +109,20 @@
             this.exitButton.UseVisualStyleBackColor = true;
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             // 
+            // pictureBox
+            // 
+            this.pictureBox.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox.Image")));
+            this.pictureBox.Location = new System.Drawing.Point(106, 12);
+            this.pictureBox.Name = "pictureBox";
+            this.pictureBox.Size = new System.Drawing.Size(200, 201);
+            this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox.TabIndex = 7;
+            this.pictureBox.TabStop = false;
+            // 
             // LoginForm
             // 
-            this.ClientSize = new System.Drawing.Size(404, 426);
+            this.ClientSize = new System.Drawing.Size(412, 522);
+            this.Controls.Add(this.pictureBox);
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.signupButton);
             this.Controls.Add(this.signinButton);
@@ -115,6 +133,8 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "LoginForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Sing In";
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -129,6 +149,7 @@
         private System.Windows.Forms.Button signinButton;
         private System.Windows.Forms.Button signupButton;
         private System.Windows.Forms.Button exitButton;
+        private System.Windows.Forms.PictureBox pictureBox;
     }
 }
 
