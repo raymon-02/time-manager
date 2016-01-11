@@ -149,7 +149,6 @@
             this.addCategoryToolStripMenuItem.Name = "addCategoryToolStripMenuItem";
             this.addCategoryToolStripMenuItem.Size = new System.Drawing.Size(248, 30);
             this.addCategoryToolStripMenuItem.Text = "Add category";
-            this.addCategoryToolStripMenuItem.Click += new System.EventHandler(this.addCategoryToolStripMenuItem_Click);
             // 
             // addFromStandartToolStripMenuItem
             // 

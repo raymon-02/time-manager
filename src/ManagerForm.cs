@@ -373,11 +373,6 @@ namespace TimeManager
             initDataListView();
         }
 
-        private void addCategoryToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void signOutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             signoutButton_Click(sender, e);
