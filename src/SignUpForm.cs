@@ -55,7 +55,7 @@ namespace TimeManager
                 return;
             }
 
-            query = "INSERT INTO Member (role, login, password) VALUES (user, '" +
+            query = "INSERT INTO Member (role, login, password) VALUES ('user', '" +
                 login + "', '" + password + "')";
             cmd = new NpgsqlCommand(query, npgsqlConnection);
             dr = cmd.ExecuteReader();

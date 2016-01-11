@@ -42,11 +42,13 @@ namespace TimeManager
                 return;
             }
 
-            var expectedPassord = dr.GetString(1);
-            if (password != expectedPassord)
+            var expectedPassword = dr.GetString(1);
+            if (password != expectedPassword)
             {
                 MessageBox.Show(@"Wrong password", @"Sign in Error", MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
+                dr.Close();
+                return;
             }
 
             var id = int.Parse(dr.GetString(0));

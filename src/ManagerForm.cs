@@ -16,6 +16,7 @@ namespace TimeManager
     {
         private readonly LoginForm preForm;
         private readonly int id;
+        private string role;
         private readonly NpgsqlConnection npgsqlConnection;
 
         private readonly IDictionary<int, string> idCategories; 
@@ -35,6 +36,23 @@ namespace TimeManager
             npgsqlConnection.Open();
 
             init();
+            initSettings();
+        }
+
+        private void initSettings()
+        {
+            var query = "SELECT role FROM Member WHERE id=" + id;
+            var cmd = new NpgsqlCommand(query, npgsqlConnection);
+            var dr = cmd.ExecuteReader();
+            dr.Read();
+            role = dr.GetString(0);
+
+            if (role != "admin")
+            {
+                adminButton.Hide();
+            }
+
+            dr.Close();
         }
 
         private void init()
@@ -337,6 +355,12 @@ namespace TimeManager
             Hide();
         }
 
+        private void adminButton_Click(object sender, EventArgs e)
+        {
+            var adminForm = new AdminForm();
+            adminForm.ShowDialog();
+        }
+
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
@@ -386,6 +410,12 @@ namespace TimeManager
             removeCategoryForm.ShowDialog();
 
             init();
+        }
+
+        private void editProfileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var editUserForm = new EditUserForm(id, id);
+            editUserForm.ShowDialog();
         }
     }
 }

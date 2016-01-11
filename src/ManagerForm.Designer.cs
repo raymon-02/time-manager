@@ -33,12 +33,14 @@
             this.timeStartColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.timeEndColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.categoryColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.userToolStrip = new System.Windows.Forms.ToolStripMenuItem();
             this.signOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addCategoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addFromStandartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.createNewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editCategoriesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.addEventButton = new System.Windows.Forms.Button();
@@ -50,9 +52,9 @@
             this.categoryColumnTotal = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.totalHourColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.signoutButton = new System.Windows.Forms.Button();
-            this.createNewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addFromStandartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuStrip1.SuspendLayout();
+            this.adminButton = new System.Windows.Forms.Button();
+            this.editProfileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // sumButton
@@ -94,21 +96,22 @@
             this.categoryColumn.Text = "Category";
             this.categoryColumn.Width = 120;
             // 
-            // menuStrip1
+            // menuStrip
             // 
-            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.userToolStrip,
             this.toolsToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(836, 33);
-            this.menuStrip1.TabIndex = 2;
-            this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip.Name = "menuStrip";
+            this.menuStrip.Size = new System.Drawing.Size(836, 33);
+            this.menuStrip.TabIndex = 2;
+            this.menuStrip.Text = "menuStrip1";
             // 
             // userToolStrip
             // 
             this.userToolStrip.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.editProfileToolStripMenuItem,
             this.signOutToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.userToolStrip.Name = "userToolStrip";
@@ -118,14 +121,14 @@
             // signOutToolStripMenuItem
             // 
             this.signOutToolStripMenuItem.Name = "signOutToolStripMenuItem";
-            this.signOutToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
+            this.signOutToolStripMenuItem.Size = new System.Drawing.Size(164, 30);
             this.signOutToolStripMenuItem.Text = "Sign out";
             this.signOutToolStripMenuItem.Click += new System.EventHandler(this.signOutToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(164, 30);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -147,6 +150,20 @@
             this.addCategoryToolStripMenuItem.Size = new System.Drawing.Size(248, 30);
             this.addCategoryToolStripMenuItem.Text = "Add category";
             this.addCategoryToolStripMenuItem.Click += new System.EventHandler(this.addCategoryToolStripMenuItem_Click);
+            // 
+            // addFromStandartToolStripMenuItem
+            // 
+            this.addFromStandartToolStripMenuItem.Name = "addFromStandartToolStripMenuItem";
+            this.addFromStandartToolStripMenuItem.Size = new System.Drawing.Size(257, 30);
+            this.addFromStandartToolStripMenuItem.Text = "Add from standart...";
+            this.addFromStandartToolStripMenuItem.Click += new System.EventHandler(this.addFromStandartToolStripMenuItem_Click);
+            // 
+            // createNewToolStripMenuItem
+            // 
+            this.createNewToolStripMenuItem.Name = "createNewToolStripMenuItem";
+            this.createNewToolStripMenuItem.Size = new System.Drawing.Size(257, 30);
+            this.createNewToolStripMenuItem.Text = "Create new...";
+            this.createNewToolStripMenuItem.Click += new System.EventHandler(this.createNewToolStripMenuItem_Click);
             // 
             // editCategoriesToolStripMenuItem
             // 
@@ -244,25 +261,29 @@
             this.signoutButton.UseVisualStyleBackColor = true;
             this.signoutButton.Click += new System.EventHandler(this.signoutButton_Click);
             // 
-            // createNewToolStripMenuItem
+            // adminButton
             // 
-            this.createNewToolStripMenuItem.Name = "createNewToolStripMenuItem";
-            this.createNewToolStripMenuItem.Size = new System.Drawing.Size(257, 30);
-            this.createNewToolStripMenuItem.Text = "Create new...";
-            this.createNewToolStripMenuItem.Click += new System.EventHandler(this.createNewToolStripMenuItem_Click);
+            this.adminButton.Location = new System.Drawing.Point(12, 506);
+            this.adminButton.Name = "adminButton";
+            this.adminButton.Size = new System.Drawing.Size(115, 45);
+            this.adminButton.TabIndex = 12;
+            this.adminButton.Text = "Admin...";
+            this.adminButton.UseVisualStyleBackColor = true;
+            this.adminButton.Click += new System.EventHandler(this.adminButton_Click);
             // 
-            // addFromStandartToolStripMenuItem
+            // editProfileToolStripMenuItem
             // 
-            this.addFromStandartToolStripMenuItem.Name = "addFromStandartToolStripMenuItem";
-            this.addFromStandartToolStripMenuItem.Size = new System.Drawing.Size(257, 30);
-            this.addFromStandartToolStripMenuItem.Text = "Add from standart...";
-            this.addFromStandartToolStripMenuItem.Click += new System.EventHandler(this.addFromStandartToolStripMenuItem_Click);
+            this.editProfileToolStripMenuItem.Name = "editProfileToolStripMenuItem";
+            this.editProfileToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
+            this.editProfileToolStripMenuItem.Text = "Edit profile...";
+            this.editProfileToolStripMenuItem.Click += new System.EventHandler(this.editProfileToolStripMenuItem_Click);
             // 
             // ManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(836, 563);
+            this.Controls.Add(this.adminButton);
             this.Controls.Add(this.signoutButton);
             this.Controls.Add(this.totalListView);
             this.Controls.Add(this.totalLabel);
@@ -273,14 +294,14 @@
             this.Controls.Add(this.dateTimePicker);
             this.Controls.Add(this.dataListView);
             this.Controls.Add(this.sumButton);
-            this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.menuStrip);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MainMenuStrip = this.menuStrip1;
+            this.MainMenuStrip = this.menuStrip;
             this.Name = "ManagerForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Time Manager";
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.menuStrip.ResumeLayout(false);
+            this.menuStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -293,7 +314,7 @@
         private System.Windows.Forms.ColumnHeader timeStartColumn;
         private System.Windows.Forms.ColumnHeader timeEndColumn;
         private System.Windows.Forms.ColumnHeader categoryColumn;
-        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStripMenuItem userToolStrip;
         private System.Windows.Forms.DateTimePicker dateTimePicker;
         private System.Windows.Forms.ToolStripMenuItem signOutToolStripMenuItem;
@@ -312,5 +333,7 @@
         private System.Windows.Forms.ToolStripMenuItem editCategoriesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addFromStandartToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem createNewToolStripMenuItem;
+        private System.Windows.Forms.Button adminButton;
+        private System.Windows.Forms.ToolStripMenuItem editProfileToolStripMenuItem;
     }
 }
