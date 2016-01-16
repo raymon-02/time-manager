@@ -17,13 +17,13 @@ CREATE TABLE Category (
 
 CREATE TABLE Mem_Cat (
     id SERIAL PRIMARY KEY,
-    member_id INT REFERENCES Member,
-    category_id INT REFERENCES Category
+    member_id INT REFERENCES Member ON DELETE CASCADE,
+    category_id INT REFERENCES Category ON DELETE CASCADE
 );
 
 CREATE TABLE Data (
     id SERIAL PRIMARY KEY,
-    mem_cat_id INT REFERENCES Mem_Cat,
+    mem_cat_id INT REFERENCES Mem_Cat ON DELETE CASCADE,
     day DATE,
     start_t TIME,
     end_t TIME
