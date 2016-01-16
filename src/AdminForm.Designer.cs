@@ -28,25 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.dataListView = new System.Windows.Forms.ListView();
             this.memberColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.roleColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.removeButton = new System.Windows.Forms.Button();
             this.clearButton = new System.Windows.Forms.Button();
             this.editButton = new System.Windows.Forms.Button();
+            this.cancelButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // listView1
+            // dataListView
             // 
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.dataListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.memberColumn,
             this.roleColumn});
-            this.listView1.Location = new System.Drawing.Point(29, 41);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(246, 350);
-            this.listView1.TabIndex = 0;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
+            this.dataListView.FullRowSelect = true;
+            this.dataListView.Location = new System.Drawing.Point(29, 41);
+            this.dataListView.Name = "dataListView";
+            this.dataListView.Size = new System.Drawing.Size(246, 350);
+            this.dataListView.TabIndex = 0;
+            this.dataListView.UseCompatibleStateImageBehavior = false;
+            this.dataListView.View = System.Windows.Forms.View.Details;
             // 
             // memberColumn
             // 
@@ -60,41 +62,56 @@
             // 
             // removeButton
             // 
-            this.removeButton.Location = new System.Drawing.Point(295, 97);
+            this.removeButton.Location = new System.Drawing.Point(295, 117);
             this.removeButton.Name = "removeButton";
-            this.removeButton.Size = new System.Drawing.Size(113, 50);
+            this.removeButton.Size = new System.Drawing.Size(113, 70);
             this.removeButton.TabIndex = 1;
             this.removeButton.Text = "Remove User";
             this.removeButton.UseVisualStyleBackColor = true;
+            this.removeButton.Click += new System.EventHandler(this.removeButton_Click);
             // 
             // clearButton
             // 
-            this.clearButton.Location = new System.Drawing.Point(295, 153);
+            this.clearButton.Location = new System.Drawing.Point(295, 193);
             this.clearButton.Name = "clearButton";
-            this.clearButton.Size = new System.Drawing.Size(113, 50);
+            this.clearButton.Size = new System.Drawing.Size(113, 70);
             this.clearButton.TabIndex = 2;
             this.clearButton.Text = "Remove All";
             this.clearButton.UseVisualStyleBackColor = true;
+            this.clearButton.Click += new System.EventHandler(this.clearButton_Click);
             // 
             // editButton
             // 
             this.editButton.Location = new System.Drawing.Point(295, 41);
             this.editButton.Name = "editButton";
-            this.editButton.Size = new System.Drawing.Size(113, 50);
+            this.editButton.Size = new System.Drawing.Size(113, 70);
             this.editButton.TabIndex = 3;
             this.editButton.Text = "Edit User...";
             this.editButton.UseVisualStyleBackColor = true;
+            this.editButton.Click += new System.EventHandler(this.editButton_Click);
+            // 
+            // cancelButton
+            // 
+            this.cancelButton.Location = new System.Drawing.Point(295, 427);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(113, 70);
+            this.cancelButton.TabIndex = 4;
+            this.cancelButton.Text = "Exit";
+            this.cancelButton.UseVisualStyleBackColor = true;
+            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
             // AdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(442, 511);
+            this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.editButton);
             this.Controls.Add(this.clearButton);
             this.Controls.Add(this.removeButton);
-            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.dataListView);
             this.Name = "AdminForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Admin settings";
             this.ResumeLayout(false);
 
@@ -102,11 +119,12 @@
 
         #endregion
 
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView dataListView;
         private System.Windows.Forms.ColumnHeader memberColumn;
         private System.Windows.Forms.ColumnHeader roleColumn;
         private System.Windows.Forms.Button removeButton;
         private System.Windows.Forms.Button clearButton;
         private System.Windows.Forms.Button editButton;
+        private System.Windows.Forms.Button cancelButton;
     }
 }

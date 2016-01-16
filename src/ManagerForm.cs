@@ -357,7 +357,7 @@ namespace TimeManager
 
         private void adminButton_Click(object sender, EventArgs e)
         {
-            var adminForm = new AdminForm();
+            var adminForm = new AdminForm(id);
             adminForm.ShowDialog();
         }
 
