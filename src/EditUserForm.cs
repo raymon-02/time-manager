@@ -34,12 +34,14 @@ namespace TimeManager
 
         private void initData()
         {
-            var query = "SELECT Member.login, Member.role FROM Member WHERE id=" + editId;
+            var query = "SELECT login, password, role FROM Member WHERE id=" + editId;
             var cmd = new NpgsqlCommand(query, npgsqlConnection);
             var dr = cmd.ExecuteReader();
             dr.Read();
             loginTextBox.Text = dr.GetString(0);
-            roleTextBox.Text = dr.GetString(1);
+            passwordTextBox.Text = dr.GetString(1);
+            confirmTextBox.Text = dr.GetString(1);
+            roleTextBox.Text = dr.GetString(2);
             dr.Close();
 
             query = "SELECT role FROM Member WHERE id=" + id;
