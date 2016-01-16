@@ -57,7 +57,6 @@
             this.loginTextBox.Name = "loginTextBox";
             this.loginTextBox.Size = new System.Drawing.Size(186, 30);
             this.loginTextBox.TabIndex = 1;
-            this.loginTextBox.Text = "raymon";
             // 
             // passwordLabel
             // 
@@ -76,7 +75,6 @@
             this.passwordTextBox.Name = "passwordTextBox";
             this.passwordTextBox.Size = new System.Drawing.Size(186, 30);
             this.passwordTextBox.TabIndex = 3;
-            this.passwordTextBox.Text = "spirit";
             this.passwordTextBox.UseSystemPasswordChar = true;
             // 
             // signinButton
