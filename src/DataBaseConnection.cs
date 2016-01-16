@@ -7,15 +7,13 @@ using Npgsql;
 
 namespace TimeManager
 {
-    class DataBaseConnection
+    public static class DataBaseConnection
     {
         private const string ServerDataBase = "Server=localhost";
         private const string PortDataBase = "Port=5432";
         private const string UserIdDataBase = "User Id=postgres";
         private const string PasswordDataBase = "Password=csc";
-        private const string DataBase = "Database=postgres";
-
-        private DataBaseConnection() { }
+        private const string DataBase = "Database=timemanager";
 
         public static NpgsqlConnection GetConnection()
         {
